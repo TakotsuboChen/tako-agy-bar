@@ -97,7 +97,7 @@ function runSmokeCheck(entryScriptPath) {
     const sampleMeta = JSON.stringify({
       conversation_id: '',
       terminal_width: 96,
-      model: { id: 'gemini-3.5-flash', display_name: 'Gemini 3.5 Flash' },
+      model: { id: 'gemini-4-hydrogen', display_name: 'Gemini 4 Hydrogen (XHigh)' },
       context_window: {
         context_window_size: 1048576,
         total_input_tokens: 120000,

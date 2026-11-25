@@ -27,12 +27,11 @@
   <text x="66" y="95" fill="#7d8590" font-family="'Cascadia Mono', 'JetBrains Mono', Consolas, monospace" font-size="13.5">Ask anything, / for commands, @ for files...</text>
 
   <!-- Built-in Status Line (stack_with_default: true) -->
-  <text x="36" y="136" fill="#7d8590" font-family="'Cascadia Mono', 'JetBrains Mono', Consolas, monospace" font-size="13">~/workspace/tako-agy-bar (main)</text>
-  <text x="822" y="136" text-anchor="end" fill="#8b949e" font-family="'Cascadia Mono', 'JetBrains Mono', Consolas, monospace" font-size="13">Gemini 3.5 Pro</text>
+  <text x="822" y="136" text-anchor="end" fill="#8b949e" font-family="'Cascadia Mono', 'JetBrains Mono', Consolas, monospace" font-size="13">accept-edits · Gemini 4 Hydrogen · xhigh</text>
 
   <!-- Tako AGY Bar Line 1 (with 1 blank-line spacer above) -->
-  <text x="822" y="176" text-anchor="end" font-family="'Cascadia Mono', 'JetBrains Mono', Consolas, monospace" font-size="13.5" xml:space="preserve"><tspan fill="#ffffff">Cached </tspan><tspan fill="#acd84b" font-weight="700">95.1%</tspan><tspan fill="#6e7b8f"> | </tspan><tspan fill="#ffffff">Context </tspan><tspan fill="#b7d746" font-weight="700">28.0%</tspan><tspan fill="#b7d746"> ██</tspan><tspan fill="#8b949e">░░░░░░░░</tspan><tspan fill="#b7d746"> 143.4</tspan><tspan fill="#d0d7de">/512.0k</tspan></text>
+  <text x="822" y="176" text-anchor="end" font-family="'Cascadia Mono', 'JetBrains Mono', Consolas, monospace" font-size="13.5" xml:space="preserve"><tspan fill="#ffffff">Cached </tspan><tspan fill="#71da64" font-weight="700">98.7%</tspan><tspan fill="#6e7b8f"> | </tspan><tspan fill="#ffffff">Context </tspan><tspan fill="#ff8d41" font-weight="700">38.1%</tspan><tspan fill="#ff8d41"> ███</tspan><tspan fill="#8b949e">░░░░░░░</tspan><tspan fill="#ff8d41"> 399.2</tspan><tspan fill="#d0d7de">/512.0k</tspan></text>
 
   <!-- Tako AGY Bar Line 2 (with 1 blank-line spacer between lines) -->
-  <text x="822" y="212" text-anchor="end" font-family="'Cascadia Mono', 'JetBrains Mono', Consolas, monospace" font-size="13.5" xml:space="preserve"><tspan fill="#ffffff">Five Hours </tspan><tspan fill="#6cda66" font-weight="700">95%</tspan><tspan fill="#6cda66"> █████████</tspan><tspan fill="#8b949e">░</tspan><tspan fill="#57caff" font-weight="700"> 4h47m</tspan><tspan fill="#6e7b8f"> | </tspan><tspan fill="#ffffff">Weekly </tspan><tspan fill="#97d954" font-weight="700">82%</tspan><tspan fill="#97d954"> ████████</tspan><tspan fill="#8b949e">░░</tspan><tspan fill="#57caff" font-weight="700"> 6d9h</tspan></text>
+  <text x="822" y="212" text-anchor="end" font-family="'Cascadia Mono', 'JetBrains Mono', Consolas, monospace" font-size="13.5" xml:space="preserve"><tspan fill="#ffffff">Five Hours </tspan><tspan fill="#d5d639" font-weight="700">63%</tspan><tspan fill="#d5d639"> ██████</tspan><tspan fill="#8b949e">░░░░</tspan><tspan fill="#57caff" font-weight="700"> 4h37m</tspan><tspan fill="#6e7b8f"> | </tspan><tspan fill="#ffffff">Weekly </tspan><tspan fill="#97d954" font-weight="700">82%</tspan><tspan fill="#97d954"> ████████</tspan><tspan fill="#8b949e">░░</tspan><tspan fill="#57caff" font-weight="700"> 6d9h</tspan></text>
 </svg>

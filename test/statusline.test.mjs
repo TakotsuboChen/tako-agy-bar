@@ -66,17 +66,17 @@ test('resolveCacheHitRate computes exact ratio and falls back smoothly during tr
   assert.equal(initialBlank.pct, null);
 });
 
-test('formatCompactTwoLineOutput emits 4-line spaced right-aligned telemetry', () => {
+test('formatCompactTwoLineOutput emits 4-line spaced right-aligned telemetry with soft-limit unified colors', () => {
   const terminalWidth = 100;
   const output = formatCompactTwoLineOutput({
-    cacheHitPct: 95.1,
+    cacheHitPct: 98.7,
     contextInfo: {
-      totalInput: 143400,
+      totalInput: 399200,
       contextSize: 1048576,
       effectiveTokenCeiling: 512000,
-      usedPctNum: 28.0
+      usedPctNum: 38.1
     },
-    quotaInfo: { remaining_percentage: 95, refreshes_in: '4h 47m' },
+    quotaInfo: { remaining_percentage: 63, refreshes_in: '4h 37m' },
     weeklyInfo: { remaining_percentage: 82, refreshes_in: '6d 9h' },
     barLength: 10,
     terminalWidth
@@ -91,8 +91,13 @@ test('formatCompactTwoLineOutput emits 4-line spaced right-aligned telemetry', (
   const plain2 = stripAnsi(lines[3]);
   assert.equal(getDisplayWidth(plain1), terminalWidth);
   assert.equal(getDisplayWidth(plain2), terminalWidth);
-  assert.match(plain1, /Cached 95\.1% \| Context 28\.0% ██░░░░░░░░ 143\.4\/512\.0k$/);
-  assert.match(plain2, /Five Hours 95% █████████░ 4h47m \| Weekly 82% ████████░░ 6d9h$/);
+  assert.match(plain1, /Cached 98\.7% \| Context 38\.1% ███░░░░░░░ 399\.2\/512\.0k$/);
+  assert.match(plain2, /Five Hours 63% ██████░░░░ 4h37m \| Weekly 82% ████████░░ 6d9h$/);
+
+  // Percentage, bar fill, and token numerator must all share the soft-limit color (399.2/512k => 22.03% remain => rgb(255,141,65))
+  const expectedSoftColor = getGradientColor(100 - (399200 / 512000) * 100, 0, 100);
+  assert.equal(expectedSoftColor, '\x1b[38;2;255;141;65m');
+  assert.ok(lines[1].includes(`${expectedSoftColor}\x1b[1m38.1%\x1b[0m ${expectedSoftColor}███\x1b[0m░░░░░░░ ${expectedSoftColor}399.2\x1b[0m/512.0k`));
 
   assert.equal(stripAnsi(alignRight('abc', 5)), '  abc');
 });
@@ -157,7 +162,7 @@ test('installTakoAgyBar and uninstallTakoAgyBar preserve existing settings and c
     fs.mkdirSync(path.join(globalDir, 'tmp'), { recursive: true });
 
     const originalCliSettings = {
-      model: 'Gemini 3.5 Pro',
+      model: 'Gemini 4 Hydrogen (XHigh)',
       ui: { language: 'zh-cn' },
       statusLine: {
         enabled: true,
@@ -187,7 +192,7 @@ test('installTakoAgyBar and uninstallTakoAgyBar preserve existing settings and c
     const rawCli = fs.readFileSync(cliSettingsPath);
     assert.equal(rawCli[0] === 0xef && rawCli[1] === 0xbb && rawCli[2] === 0xbf, false);
     const updatedCli = JSON.parse(rawCli.toString('utf8'));
-    assert.equal(updatedCli.model, 'Gemini 3.5 Pro');
+    assert.equal(updatedCli.model, 'Gemini 4 Hydrogen (XHigh)');
     assert.equal(updatedCli.customUserFlag, 'keep-me');
     assert.equal(updatedCli.statusLine.enabled, true);
     assert.equal(updatedCli.statusLine.stack_with_default, true);

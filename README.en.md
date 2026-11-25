@@ -28,11 +28,11 @@ With `stack_with_default: true` enabled by default, the built-in status line sta
 Plain-text layout:
 
 ```text
-~/workspace/tako-agy-bar (main)                                           Gemini 3.5 Pro
+                                                  accept-edits · Gemini 4 Hydrogen · xhigh
 
-                                      Cached 95.1% | Context 28.0% ██░░░░░░░░ 143.4/512.0k
+                                      Cached 98.7% | Context 38.1% ███░░░░░░░ 399.2/512.0k
 
-                                    Five Hours 95% █████████░ 4h47m | Weekly 82% ████████░░ 6d9h
+                                    Five Hours 63% ██████░░░░ 4h37m | Weekly 82% ████████░░ 6d9h
 ```
 
 ---
@@ -69,7 +69,7 @@ Please install and enable Tako AGY Bar (https://github.com/TakotsuboChen/tako-ag
 - **Smooth 24-bit TrueColor RGB Gradients**
   - Interpolates continuously across Green (`#5cdb6d`) → Yellow (`#ffd427`) → Red (`#ff5555`):
     - **`Cached`**: Mapped over `[80%, 100%]` (`100%` green → `90%` yellow → `<=80%` red) to surface cache misses immediately.
-    - **`Context`**: Percentage, filled blocks, and used token count scale smoothly by remaining headroom (`100 - usedPct`).
+    - **`Context`**: Percentage, filled bar blocks, and used token count all scale uniformly by remaining headroom against Antigravity CLI's **actual soft compaction limit** (rather than the model's raw physical window), keeping colors consistent across the entire Context segment.
     - **`Five Hours` / `Weekly`**: Scale by remaining quota `[0%, 100%]`, with reset countdowns highlighted in crisp blue (`#57caff`).
 
 - **4-Tier Context Resolution & Session Isolation**

@@ -139,11 +139,6 @@ export function formatCompactTwoLineOutput({
   terminalWidth = 120
 }) {
   const usedPctNum = Number(contextInfo?.usedPctNum || 0);
-  const remainCtx = Math.max(0, 100 - usedPctNum);
-  const contextColor = getGradientColor(remainCtx, 0, 100);
-  const usedPctStr = `${usedPctNum.toFixed(1)}%`;
-  const contextBar = renderPlainBar(usedPctNum, barLength, contextColor);
-
   const effectiveTokenMax = (contextInfo?.effectiveTokenCeiling && contextInfo.effectiveTokenCeiling > 0)
     ? contextInfo.effectiveTokenCeiling
     : (contextInfo?.contextSize && contextInfo.contextSize > 0
@@ -152,7 +147,11 @@ export function formatCompactTwoLineOutput({
   const totalInput = Number(contextInfo?.totalInput || 0);
   const rawTokenPct = effectiveTokenMax > 0 ? (totalInput / effectiveTokenMax) * 100 : usedPctNum;
   const tokenPct = Math.min(100, Math.max(0, rawTokenPct));
-  const tokenColor = getGradientColor(Math.max(0, 100 - tokenPct), 0, 100);
+  // 按 Antigravity CLI 实际软限制统一着色（百分比数字、进度条填充、分子 Token 颜色保持完全一致）
+  const contextColor = getGradientColor(Math.max(0, 100 - tokenPct), 0, 100);
+  const tokenColor = contextColor;
+  const usedPctStr = `${usedPctNum.toFixed(1)}%`;
+  const contextBar = renderPlainBar(usedPctNum, barLength, contextColor);
   const fraction = formatCompactFraction(totalInput, effectiveTokenMax);
   const slashIdx = fraction.indexOf('/');
   const usedPart = slashIdx === -1 ? fraction : fraction.slice(0, slashIdx);
@@ -197,7 +196,7 @@ async function main() {
       manageAccountMetaCacheAsync(meta, { allowCliLogScan: false })
     ]);
 
-    let fallbackModel = 'Gemini 3.5 Flash (High)';
+    let fallbackModel = 'Gemini 4 Hydrogen (XHigh)';
     if (meta?.model?.display_name) fallbackModel = meta.model.display_name;
     else if (meta?.model?.id) fallbackModel = meta.model.id;
 
