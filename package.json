@@ -1,0 +1,32 @@
+{
+  "name": "tako-agy-bar",
+  "version": "1.0.0",
+  "description": "Compact two-line, right-aligned 24-bit TrueColor status bar for Google Antigravity CLI (agy) featuring Prompt Cache hit rate, stepped context usage, and 5-hour/weekly quota bars.",
+  "type": "module",
+  "main": "hooks/custom-compact-statusline.mjs",
+  "scripts": {
+    "install-bar": "node install.mjs",
+    "uninstall-bar": "node uninstall.mjs",
+    "test": "node --test test/statusline.test.mjs"
+  },
+  "keywords": [
+    "antigravity",
+    "antigravity-cli",
+    "agy",
+    "statusline",
+    "terminal",
+    "truecolor",
+    "prompt-cache",
+    "quota"
+  ],
+  "author": "TakotsuboChen",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/TakotsuboChen/tako-agy-bar.git"
+  },
+  "homepage": "https://github.com/TakotsuboChen/tako-agy-bar#readme",
+  "engines": {
+    "node": ">=18.0.0"
+  }
+}
