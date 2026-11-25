@@ -22,18 +22,8 @@
 With `stack_with_default: true` enabled by default, the built-in status line stays on top while **Tako AGY Bar** aligns cleanly to the right below it:
 
 <p align="center">
-  <img src="assets/tako-agy-bar-preview.svg" alt="Tako AGY Bar Preview" width="100%" />
+  <img src="assets/tako-agy-bar-preview.png" alt="Tako AGY Bar Preview" width="100%" />
 </p>
-
-Plain-text layout:
-
-```text
-                                                  accept-edits · Gemini 4 Hydrogen · xhigh
-
-                                      Cached 98.7% | Context 38.1% ███░░░░░░░ 399.2/512.0k
-
-                                    Five Hours 63% ██████░░░░ 4h37m | Weekly 82% ████████░░ 6d9h
-```
 
 ---
 

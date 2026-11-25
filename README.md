@@ -22,18 +22,8 @@
 默认开启 `stack_with_default: true`，上方保留官方原生状态栏（工作区路径、Git 分支、当前模型），下方自动靠右渲染 **Tako AGY Bar** 双行遥测：
 
 <p align="center">
-  <img src="assets/tako-agy-bar-preview.svg" alt="Tako AGY Bar 效果预览" width="100%" />
+  <img src="assets/tako-agy-bar-preview.png" alt="Tako AGY Bar 效果预览" width="100%" />
 </p>
-
-纯文本结构示意：
-
-```text
-                                                  accept-edits · Gemini 4 Hydrogen · xhigh
-
-                                      Cached 98.7% | Context 38.1% ███░░░░░░░ 399.2/512.0k
-
-                                    Five Hours 63% ██████░░░░ 4h37m | Weekly 82% ████████░░ 6d9h
-```
 
 ---
 
@@ -133,7 +123,7 @@ tako-agy-bar/
 ├── uninstall.mjs                      # 无损卸载与配置还原脚本
 ├── package.json
 ├── assets/
-│   └── tako-agy-bar-preview.svg       # 终端效果预览图
+│   └── tako-agy-bar-preview.png       # 终端效果预览图
 ├── hooks/
 │   ├── custom-compact-statusline.mjs  # 双行右对齐 TrueColor 状态栏主入口
 │   ├── fetch-local-quota.mjs          # Language Server RPC 本地配额拉取器
