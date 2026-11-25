@@ -22,7 +22,7 @@
 默认开启 `stack_with_default: true`，上方保留官方原生状态栏（工作区路径、Git 分支、当前模型），下方自动靠右渲染 **Tako AGY Bar** 双行遥测：
 
 <p align="center">
-  <img src="assets/tako-agy-bar-preview-v2.png" alt="Tako AGY Bar 效果预览" width="100%" />
+  <img src="assets/tako-agy-bar-preview-v3.png" alt="Tako AGY Bar 效果预览" width="100%" />
 </p>
 
 ---
@@ -52,7 +52,7 @@
 ## ✨ 核心特性
 
 - **🎯 极简双行 · 原生上下叠放**
-  - 第 1 行实时展示 **Prompt Cache 命中率** 与 **Context 窗口占用**（百分比 + 无边框 10 格进度条 + `已用/有效上限`）。
+  - 第 1 行实时展示 **Prompt Cache 命中率** 与 **Context 窗口占用**（百分比 + 1/8 字符亚像素 80 级高精度进度条 + `已用/有效上限`）。
   - 第 2 行实时展示 **5 小时短周期配额** 与 **7 天周配额**（剩余百分比 + 无边框 10 格进度条 + 刷新倒计时）。
   - 通过原生 `stack_with_default: true` 与官方状态栏上下共存；并在输出首行与两行之间内建空行隔离，即使在 `lineHeight < 1.0` 的高紧凑终端下也绝不像素粘连，且支持热重载免重启生效。
 
@@ -123,7 +123,7 @@ tako-agy-bar/
 ├── uninstall.mjs                      # 无损卸载与配置还原脚本
 ├── package.json
 ├── assets/
-│   └── tako-agy-bar-preview-v2.png    # 终端效果预览图
+│   └── tako-agy-bar-preview-v3.png    # 终端效果预览图
 ├── hooks/
 │   ├── custom-compact-statusline.mjs  # 双行右对齐 TrueColor 状态栏主入口
 │   ├── fetch-local-quota.mjs          # Language Server RPC 本地配额拉取器

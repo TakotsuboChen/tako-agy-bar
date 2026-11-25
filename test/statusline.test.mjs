@@ -34,12 +34,18 @@ test('getGradientColor interpolates smooth RGB stops from red -> yellow -> green
   assert.equal(getGradientColor(40, 80, 100), '\x1b[38;2;255;85;85m');
 });
 
-test('renderPlainBar produces borderless 10-char bars with clamped bounds', () => {
+test('renderPlainBar produces 1/8-block sub-cell precision bars with invariant display width', () => {
   assert.equal(stripAnsi(renderPlainBar(0, 10)), '░░░░░░░░░░');
-  assert.equal(stripAnsi(renderPlainBar(28, 10)), '██░░░░░░░░');
-  assert.equal(stripAnsi(renderPlainBar(95, 10)), '█████████░');
+  assert.equal(stripAnsi(renderPlainBar(59.9, 10)), '██████░░░░');
+  assert.equal(stripAnsi(renderPlainBar(79, 10)), '███████▉░░');
+  assert.equal(stripAnsi(renderPlainBar(80, 10)), '████████░░');
   assert.equal(stripAnsi(renderPlainBar(150, 10)), '██████████');
   assert.equal(stripAnsi(renderPlainBar(-10, 10)), '░░░░░░░░░░');
+
+  for (let p = 0; p <= 100; p += 0.5) {
+    const rendered = renderPlainBar(p, 10, '\x1b[38;2;92;219;109m');
+    assert.equal(getDisplayWidth(stripAnsi(rendered)), 10);
+  }
 });
 
 test('resolveCacheHitRate computes exact ratio and falls back smoothly during transient nulls', () => {
@@ -91,13 +97,13 @@ test('formatCompactTwoLineOutput emits 4-line spaced right-aligned telemetry wit
   const plain2 = stripAnsi(lines[3]);
   assert.equal(getDisplayWidth(plain1), terminalWidth);
   assert.equal(getDisplayWidth(plain2), terminalWidth);
-  assert.match(plain1, /Cached 98\.7% \| Context 78\.0% ███████░░░ 399\.2\/512\.0k$/);
-  assert.match(plain2, /Five Hours 63% ██████░░░░ 4h37m \| Weekly 82% ████████░░ 6d9h$/);
+  assert.match(plain1, /Cached 98\.7% \| Context 78\.0% ███████▊░░ 399\.2\/512\.0k$/);
+  assert.match(plain2, /Five Hours 63% ██████▎░░░ 4h37m \| Weekly 82% ████████▎░ 6d9h$/);
 
-  // Percentage, bar fill, and token numerator must all match the soft-limit ratio (399.2/512k => 78.0%, 7 blocks, rgb(255,141,65))
+  // Percentage, bar fill, and token numerator must all match the soft-limit ratio (399.2/512k => 78.0%, 62/80 eighths, rgb(255,141,65))
   const expectedSoftColor = getGradientColor(100 - (399200 / 512000) * 100, 0, 100);
   assert.equal(expectedSoftColor, '\x1b[38;2;255;141;65m');
-  assert.ok(lines[1].includes(`${expectedSoftColor}\x1b[1m78.0%\x1b[0m ${expectedSoftColor}███████\x1b[0m░░░ ${expectedSoftColor}399.2\x1b[0m/512.0k`));
+  assert.ok(lines[1].includes(`${expectedSoftColor}\x1b[1m78.0%\x1b[0m ${expectedSoftColor}███████\x1b[0m${expectedSoftColor}\x1b[48;2;108;108;109m▊\x1b[0m░░ ${expectedSoftColor}399.2\x1b[0m/512.0k`));
 
   assert.equal(stripAnsi(alignRight('abc', 5)), '  abc');
 });

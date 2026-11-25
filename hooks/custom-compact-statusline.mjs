@@ -32,17 +32,27 @@ import {
   stripAnsi
 } from './lib/renderers/ansi.mjs';
 
+const PARTIAL_BLOCKS = ['', '▏', '▎', '▍', '▌', '▋', '▊', '▉'];
+const TRACK_BG = '\x1b[48;2;108;108;109m';
+
 export function renderPlainBar(pct, length = 10, color = '') {
   const len = Math.min(50, Math.max(1, parseInt(length, 10) || 10));
   const numPct = typeof pct === 'number' ? pct : parseFloat(pct);
   const clamped = Math.max(0, Math.min(100, typeof numPct === 'number' && !isNaN(numPct) ? numPct : 0));
-  let filled = Math.floor((clamped / 100) * len);
-  if (clamped >= 100) filled = len;
-  if (clamped <= 0) filled = 0;
-  const empty = len - filled;
-  const filledStr = '█'.repeat(filled);
+  const totalEighths = Math.round((clamped / 100) * len * 8);
+  const full = Math.floor(totalEighths / 8);
+  const rem = totalEighths % 8;
+  const empty = len - full - (rem > 0 ? 1 : 0);
+
+  const filledStr = '█'.repeat(full);
+  const partialChar = rem > 0 ? PARTIAL_BLOCKS[rem] : '';
   const emptyStr = '░'.repeat(empty);
-  return color ? `${color}${filledStr}${RESET}${emptyStr}` : `${filledStr}${emptyStr}`;
+  if (!color) {
+    return `${filledStr}${partialChar}${emptyStr}`;
+  }
+  const filledPart = filledStr ? `${color}${filledStr}${RESET}` : '';
+  const partialPart = partialChar ? `${color}${TRACK_BG}${partialChar}${RESET}` : '';
+  return `${filledPart}${partialPart}${emptyStr}`;
 }
 
 export function formatCompactFraction(used, max) {

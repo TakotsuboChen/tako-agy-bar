@@ -22,7 +22,7 @@
 With `stack_with_default: true` enabled by default, the built-in status line stays on top while **Tako AGY Bar** aligns cleanly to the right below it:
 
 <p align="center">
-  <img src="assets/tako-agy-bar-preview-v2.png" alt="Tako AGY Bar Preview" width="100%" />
+  <img src="assets/tako-agy-bar-preview-v3.png" alt="Tako AGY Bar Preview" width="100%" />
 </p>
 
 ---
@@ -52,7 +52,7 @@ Please install and enable Tako AGY Bar (https://github.com/TakotsuboChen/tako-ag
 ## ✨ Features
 
 - **Minimal Two-Line Right-Aligned Layout (`stack_with_default: true`)**
-  - **Line 1**: Real-time **Prompt Cache hit rate** + **Context usage** (`pct%` + borderless 10-cell bar + `used/ceiling`).
+  - **Line 1**: Real-time **Prompt Cache hit rate** + **Context usage** (`pct%` + 80-step 1/8-block precision bar + `used/ceiling`).
   - **Line 2**: **5-Hour short-term quota** + **7-Day weekly quota** (`remaining%` + borderless 10-cell bar + reset countdown).
   - Built-in spacer lines above Line 1 and between Line 1 & Line 2 prevent vertical bar sticking even in compact terminals (`lineHeight < 1.0`), without needing `padding` restarts.
 
