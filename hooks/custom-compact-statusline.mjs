@@ -147,11 +147,11 @@ export function formatCompactTwoLineOutput({
   const totalInput = Number(contextInfo?.totalInput || 0);
   const rawTokenPct = effectiveTokenMax > 0 ? (totalInput / effectiveTokenMax) * 100 : usedPctNum;
   const tokenPct = Math.min(100, Math.max(0, rawTokenPct));
-  // 按 Antigravity CLI 实际软限制统一着色（百分比数字、进度条填充、分子 Token 颜色保持完全一致）
+  // 按 Antigravity CLI 实际软限制统一计算百分比、进度条填充长度与渐变着色
   const contextColor = getGradientColor(Math.max(0, 100 - tokenPct), 0, 100);
   const tokenColor = contextColor;
-  const usedPctStr = `${usedPctNum.toFixed(1)}%`;
-  const contextBar = renderPlainBar(usedPctNum, barLength, contextColor);
+  const usedPctStr = `${tokenPct.toFixed(1)}%`;
+  const contextBar = renderPlainBar(tokenPct, barLength, contextColor);
   const fraction = formatCompactFraction(totalInput, effectiveTokenMax);
   const slashIdx = fraction.indexOf('/');
   const usedPart = slashIdx === -1 ? fraction : fraction.slice(0, slashIdx);

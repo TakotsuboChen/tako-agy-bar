@@ -22,7 +22,7 @@
 With `stack_with_default: true` enabled by default, the built-in status line stays on top while **Tako AGY Bar** aligns cleanly to the right below it:
 
 <p align="center">
-  <img src="assets/tako-agy-bar-preview.png" alt="Tako AGY Bar Preview" width="100%" />
+  <img src="assets/tako-agy-bar-preview-v2.png" alt="Tako AGY Bar Preview" width="100%" />
 </p>
 
 ---
@@ -59,7 +59,7 @@ Please install and enable Tako AGY Bar (https://github.com/TakotsuboChen/tako-ag
 - **Smooth 24-bit TrueColor RGB Gradients**
   - Interpolates continuously across Green (`#5cdb6d`) → Yellow (`#ffd427`) → Red (`#ff5555`):
     - **`Cached`**: Mapped over `[80%, 100%]` (`100%` green → `90%` yellow → `<=80%` red) to surface cache misses immediately.
-    - **`Context`**: Percentage, filled bar blocks, and used token count all scale uniformly by remaining headroom against Antigravity CLI's **actual soft compaction limit** (rather than the model's raw physical window), keeping colors consistent across the entire Context segment.
+    - **`Context`**: Percentage, filled bar length, gradient color, and used token count are all calculated uniformly against Antigravity CLI's **actual soft compaction limit** (rather than the model's raw physical window), keeping the digits, progress bar, and fraction 100% consistent.
     - **`Five Hours` / `Weekly`**: Scale by remaining quota `[0%, 100%]`, with reset countdowns highlighted in crisp blue (`#57caff`).
 
 - **4-Tier Context Resolution & Session Isolation**

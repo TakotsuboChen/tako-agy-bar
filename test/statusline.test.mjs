@@ -66,7 +66,7 @@ test('resolveCacheHitRate computes exact ratio and falls back smoothly during tr
   assert.equal(initialBlank.pct, null);
 });
 
-test('formatCompactTwoLineOutput emits 4-line spaced right-aligned telemetry with soft-limit unified colors', () => {
+test('formatCompactTwoLineOutput emits 4-line spaced right-aligned telemetry with soft-limit pct, bar, and colors', () => {
   const terminalWidth = 100;
   const output = formatCompactTwoLineOutput({
     cacheHitPct: 98.7,
@@ -91,13 +91,13 @@ test('formatCompactTwoLineOutput emits 4-line spaced right-aligned telemetry wit
   const plain2 = stripAnsi(lines[3]);
   assert.equal(getDisplayWidth(plain1), terminalWidth);
   assert.equal(getDisplayWidth(plain2), terminalWidth);
-  assert.match(plain1, /Cached 98\.7% \| Context 38\.1% ███░░░░░░░ 399\.2\/512\.0k$/);
+  assert.match(plain1, /Cached 98\.7% \| Context 78\.0% ███████░░░ 399\.2\/512\.0k$/);
   assert.match(plain2, /Five Hours 63% ██████░░░░ 4h37m \| Weekly 82% ████████░░ 6d9h$/);
 
-  // Percentage, bar fill, and token numerator must all share the soft-limit color (399.2/512k => 22.03% remain => rgb(255,141,65))
+  // Percentage, bar fill, and token numerator must all match the soft-limit ratio (399.2/512k => 78.0%, 7 blocks, rgb(255,141,65))
   const expectedSoftColor = getGradientColor(100 - (399200 / 512000) * 100, 0, 100);
   assert.equal(expectedSoftColor, '\x1b[38;2;255;141;65m');
-  assert.ok(lines[1].includes(`${expectedSoftColor}\x1b[1m38.1%\x1b[0m ${expectedSoftColor}███\x1b[0m░░░░░░░ ${expectedSoftColor}399.2\x1b[0m/512.0k`));
+  assert.ok(lines[1].includes(`${expectedSoftColor}\x1b[1m78.0%\x1b[0m ${expectedSoftColor}███████\x1b[0m░░░ ${expectedSoftColor}399.2\x1b[0m/512.0k`));
 
   assert.equal(stripAnsi(alignRight('abc', 5)), '  abc');
 });

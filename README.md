@@ -22,7 +22,7 @@
 默认开启 `stack_with_default: true`，上方保留官方原生状态栏（工作区路径、Git 分支、当前模型），下方自动靠右渲染 **Tako AGY Bar** 双行遥测：
 
 <p align="center">
-  <img src="assets/tako-agy-bar-preview.png" alt="Tako AGY Bar 效果预览" width="100%" />
+  <img src="assets/tako-agy-bar-preview-v2.png" alt="Tako AGY Bar 效果预览" width="100%" />
 </p>
 
 ---
@@ -59,7 +59,7 @@
 - **🌈 24-bit TrueColor 三段线性连续渐变**
   - 锚定翠绿 `#5cdb6d` → 琥珀黄 `#ffd427` → 珊瑚红 `#ff5555` 平滑插值，告别生硬的四档阶梯跳变：
     - **Cached 命中率**：按 `[80%, 100%]` 敏感区间映射（`100%` 绿 → `90%` 黄 → `≤80%` 红），一眼看穿长上下文缓存是否失效。
-    - **Context 用量**：百分比数字、进度条填充与已用 Token 分子**统一按 Antigravity CLI 实际软限制（Compaction 上限）剩余比例**渐变着色（而非模型物理窗口），低占用绿 → 半载黄 → 临近软压缩上限红，颜色完全一致且分母保持亮白清晰可读。
+    - **Context 用量**：百分比数字、进度条填充长度与配色、已用 Token 分子**全部按 Antigravity CLI 实际软限制（Compaction 上限）**计算与渐变（低占用绿 → 半载黄 → 临近软压缩上限红），数字、进度条与分数完全统一且分母保持亮白清晰可读。
     - **Five Hours / Weekly 配额**：按剩余额度 `[0%, 100%]` 渐变，刷新倒计时保留高亮冰蓝 `#57caff`。
 
 - **🧠 四层上下文解析 & 缓存防抖防串库**
@@ -123,7 +123,7 @@ tako-agy-bar/
 ├── uninstall.mjs                      # 无损卸载与配置还原脚本
 ├── package.json
 ├── assets/
-│   └── tako-agy-bar-preview.png       # 终端效果预览图
+│   └── tako-agy-bar-preview-v2.png    # 终端效果预览图
 ├── hooks/
 │   ├── custom-compact-statusline.mjs  # 双行右对齐 TrueColor 状态栏主入口
 │   ├── fetch-local-quota.mjs          # Language Server RPC 本地配额拉取器
