@@ -22,7 +22,7 @@
 With `stack_with_default: true` enabled by default, the built-in status line stays on top while **Tako AGY Bar** aligns cleanly to the right below it:
 
 <p align="center">
-  <img src="assets/preview.svg" alt="Tako AGY Bar Preview" width="100%" />
+  <img src="assets/tako-agy-bar-preview.svg" alt="Tako AGY Bar Preview" width="100%" />
 </p>
 
 Plain-text layout:
