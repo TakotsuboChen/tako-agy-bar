@@ -33,7 +33,7 @@ import {
 } from './lib/renderers/ansi.mjs';
 
 const PARTIAL_BLOCKS = ['', '▏', '▎', '▍', '▌', '▋', '▊', '▉'];
-const TRACK_BG = '\x1b[48;2;108;108;109m';
+const TRACK_BG = '\x1b[48;2;72;77;86m';
 
 export function renderPlainBar(pct, length = 10, color = '') {
   const len = Math.min(50, Math.max(1, parseInt(length, 10) || 10));
@@ -46,13 +46,14 @@ export function renderPlainBar(pct, length = 10, color = '') {
 
   const filledStr = '█'.repeat(full);
   const partialChar = rem > 0 ? PARTIAL_BLOCKS[rem] : '';
-  const emptyStr = '░'.repeat(empty);
   if (!color) {
+    const emptyStr = '░'.repeat(empty);
     return `${filledStr}${partialChar}${emptyStr}`;
   }
   const filledPart = filledStr ? `${color}${filledStr}${RESET}` : '';
   const partialPart = partialChar ? `${color}${TRACK_BG}${partialChar}${RESET}` : '';
-  return `${filledPart}${partialPart}${emptyStr}`;
+  const emptyPart = empty > 0 ? `${TRACK_BG}${' '.repeat(empty)}${RESET}` : '';
+  return `${filledPart}${partialPart}${emptyPart}`;
 }
 
 export function formatCompactFraction(used, max) {

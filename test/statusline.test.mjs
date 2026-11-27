@@ -45,7 +45,15 @@ test('renderPlainBar produces 1/8-block sub-cell precision bars with invariant d
   for (let p = 0; p <= 100; p += 0.5) {
     const rendered = renderPlainBar(p, 10, '\x1b[38;2;92;219;109m');
     assert.equal(getDisplayWidth(stripAnsi(rendered)), 10);
+    assert.equal(rendered.includes('░'), false);
   }
+  const unifiedZero = renderPlainBar(0, 10, '\x1b[38;2;92;219;109m');
+  assert.equal(unifiedZero, '\x1b[48;2;72;77;86m          \x1b[0m');
+  const unifiedPartial = renderPlainBar(24.5, 10, '\x1b[38;2;92;219;109m');
+  assert.equal(
+    unifiedPartial,
+    '\x1b[38;2;92;219;109m██\x1b[0m\x1b[38;2;92;219;109m\x1b[48;2;72;77;86m▌\x1b[0m\x1b[48;2;72;77;86m       \x1b[0m'
+  );
 });
 
 test('resolveCacheHitRate computes exact ratio and falls back smoothly during transient nulls', () => {
@@ -97,13 +105,13 @@ test('formatCompactTwoLineOutput emits 4-line spaced right-aligned telemetry wit
   const plain2 = stripAnsi(lines[3]);
   assert.equal(getDisplayWidth(plain1), terminalWidth);
   assert.equal(getDisplayWidth(plain2), terminalWidth);
-  assert.match(plain1, /Cached 98\.7% \| Context 78\.0% ███████▊░░ 399\.2\/512\.0k$/);
-  assert.match(plain2, /Five Hours 63% ██████▎░░░ 4h37m \| Weekly 82% ████████▎░ 6d9h$/);
+  assert.match(plain1, /Cached 98\.7% \| Context 78\.0% ███████▊   399\.2\/512\.0k$/);
+  assert.match(plain2, /Five Hours 63% ██████▎    4h37m \| Weekly 82% ████████▎  6d9h$/);
 
   // Percentage, bar fill, and token numerator must all match the soft-limit ratio (399.2/512k => 78.0%, 62/80 eighths, rgb(255,141,65))
   const expectedSoftColor = getGradientColor(100 - (399200 / 512000) * 100, 0, 100);
   assert.equal(expectedSoftColor, '\x1b[38;2;255;141;65m');
-  assert.ok(lines[1].includes(`${expectedSoftColor}\x1b[1m78.0%\x1b[0m ${expectedSoftColor}███████\x1b[0m${expectedSoftColor}\x1b[48;2;108;108;109m▊\x1b[0m░░ ${expectedSoftColor}399.2\x1b[0m/512.0k`));
+  assert.ok(lines[1].includes(`${expectedSoftColor}\x1b[1m78.0%\x1b[0m ${expectedSoftColor}███████\x1b[0m${expectedSoftColor}\x1b[48;2;72;77;86m▊\x1b[0m\x1b[48;2;72;77;86m  \x1b[0m ${expectedSoftColor}399.2\x1b[0m/512.0k`));
 
   assert.equal(stripAnsi(alignRight('abc', 5)), '  abc');
 });
@@ -153,7 +161,8 @@ test('blank startup input ignores ctx_default.json and prevents cross-session le
     });
     assert.equal(res.status, 0);
     const plain = stripAnsi(res.stdout);
-    assert.match(plain, /Context 0\.0% ░░░░░░░░░░ 0\/256\.0k/);
+    assert.match(plain, /Context 0\.0% {12}0\/256\.0k/);
+    assert.ok(res.stdout.includes('\x1b[48;2;72;77;86m          \x1b[0m'));
   } finally {
     fs.rmSync(probeHome, { recursive: true, force: true });
   }
